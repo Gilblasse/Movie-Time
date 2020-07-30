@@ -3,6 +3,9 @@ import {render} from 'react-dom';
 import './index.css';
 import App from './App';
 import MainProvider from './Config/MainProvider';
+import {
+    BrowserRouter as Router,
+  } from "react-router-dom";
 
 
-render(<MainProvider><App /></MainProvider>, document.getElementById('root'));
+render(<Router><MainProvider><App /></MainProvider></Router>, document.getElementById('root'));

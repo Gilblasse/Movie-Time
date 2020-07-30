@@ -4,6 +4,10 @@ import React, {
 import axios from 'axios';
 import Context from '../Config/Context';
 // import { createBrowserHistory } from 'history';
+import {
+    withRouter
+} from "react-router-dom";
+
 
 
 
@@ -38,7 +42,7 @@ class MainProvider extends Component {
             movies
         }, this.fetchFeatured)
 
-        const handleScroll = this.dw_getScrollOffsets.bind(this)
+        const handleScroll = this.handleScroll.bind(this)
         window.addEventListener('scroll', handleScroll);
         // window.addEventListener('beforeunload', this.popUpBlocker);
     }
@@ -52,26 +56,34 @@ class MainProvider extends Component {
     //     return event.returnValue
     // }
 
-    updateMoviePage(){
-        this.setState(prevState => ({page: prevState.page + 1 }), async ()=> {
+    updateMoviePage() {
+        this.setState(prevState => ({
+            page: prevState.page + 1
+        }), async () => {
             const movies = await this.fetchMovies()
 
-            this.setState(prev => ({allMovies: [...prev.allMovies, ...movies]}), ()=>{
+            this.setState(prev => ({
+                allMovies: [...prev.allMovies, ...movies]
+            }), () => {
 
                 const activeGenreId = menuItems[this.state.activeFilter]
                 const mixedMovies = [...this.state.allMovies, ...movies]
                 const movis = activeGenreId !== 0 ? mixedMovies.filter(movie => movie.genre_ids.includes(activeGenreId)) : this.state.allMovies
-           
-                this.setState({movies: movis})
+
+                this.setState({
+                    movies: movis
+                })
             })
         })
     }
 
 
-    dw_getScrollOffsets(e) {
+    handleScroll(e) {
+        if(this.props.history.location.pathname === '/'){
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
                 this.state.searchTitle.length <= 2 && this.updateMoviePage()
             }
+        }
     }
 
 
@@ -143,7 +155,7 @@ class MainProvider extends Component {
         const movies = data.data.results
         const movie = movies.filter(movie => movie.title === movieTitle)
         const movieData = await axios(`https://api.themoviedb.org/3/movie/${movie[0].id}?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US`)
-        console.log("movieData: ",movieData)
+        console.log("movieData: ", movieData)
         this.setState({
             movie: movieData.data
         })
@@ -157,7 +169,9 @@ class MainProvider extends Component {
     }
 
     async resetMovies() {
-        this.setState({page: 1 })
+        this.setState({
+            page: 1
+        })
         const movies = await this.fetchMovies()
         this.setState({
             movies
@@ -165,8 +179,10 @@ class MainProvider extends Component {
     }
 
 
-    setactiveFilter(activeGenre){
-        this.setState({activeFilter: activeGenre})
+    setactiveFilter(activeGenre) {
+        this.setState({
+            activeFilter: activeGenre
+        })
     }
 
 
@@ -187,10 +203,10 @@ class MainProvider extends Component {
                 }
             } > {
                 this.props.children
-            } </Context.Provider>
+            } < /Context.Provider>
         )
     }
 
 }
 
-export default MainProvider
+export default withRouter(MainProvider)

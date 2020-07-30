@@ -4,9 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import SideBar from './Components/SideBar';
 import NavBar from './Containers/NavBar';
 import Main from './Containers/MainContainer';
-import {
-  BrowserRouter as Router,
-} from "react-router-dom";
+
 
 
 
@@ -39,7 +37,7 @@ function App(props) {
   };
   
   return (
-    <Router>
+  
     <div className={classes.root}>
       <CssBaseline />
       <NavBar mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} drawerWidth={drawerWidth} />
@@ -57,7 +55,7 @@ function App(props) {
       </main>
 
     </div>
-    </Router>
+    
   );
 }
 

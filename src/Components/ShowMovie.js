@@ -4,7 +4,7 @@ import Context from "../Config/Context";
 import { withRouter } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import AdBlockDetect from "react-ad-block-detect";
-import moment from 'moment'
+// import moment from 'moment'
 import { CircularProgress } from '@material-ui/core'
 
 
@@ -42,13 +42,14 @@ function ShowMovie({ match }) {
 
             <div
               style={
-                moviePlayer.current
+                (typeof moviePlayer.current) === 'object'
                   ? { display: "none" }
                   : { display: "block", width: "100%", height: 500 }
               }
               className="show-movie__add-blocker-message-wrapper"
             >
               <div>
+                {console.log((typeof moviePlayer.current) === 'object')}
                 <Typography variant="h4" color="textSecondary">
                   Please Enable Ad Blockers
                 </Typography>
@@ -81,6 +82,7 @@ function ShowMovie({ match }) {
                 </div>
 
                 <ul className="show-movie__video-info">
+                {console.log('Show Movie: ', movie)}
                   <li><strong>Runtime: </strong> {movie?.runtime} min</li>
                   <li><strong>Popularity: </strong> {Math.ceil(movie?.popularity)}%</li>
                   <li className="show-movie__video-genres">
