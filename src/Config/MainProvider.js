@@ -117,14 +117,10 @@ class MainProvider extends Component {
     fetchFeatured = () => {
         const selectedMovie = this.state.allMovies[Math.floor(Math.random() * this.state.allMovies.length)]
         fetch(`https://api.themoviedb.org/3/movie/${selectedMovie.id}?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US`)
-            .then(res => res.json())
-            .then(movie => this.setState({
-                featured: movie
-            }))
-
-        // return fetch(`${findMovieByTitleApi}${selectedMovie.title}`)
-        // .then( res => res.json())
-        // .then( data => this.setState({featured: {...data, Poster: selectedMovie.backdrop_path}}) );
+        .then(res => res.json())
+        .then(movie => this.setState({
+            featured: movie
+        }))
     }
 
 
