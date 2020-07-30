@@ -30,6 +30,20 @@
   margin-top: 120px;
 }
 
+.show-movie__movie-player-wrapper{
+  position: relative;
+  height: 500px;
+}
+
+.show-movie__add-blocker-message-wrapper{
+  position: absolute;
+}
+
+.show-movie__movie-stream-wrapper{
+  position: relative;
+  background-color: #fff;
+}
+
 .show-movie__details-wrapper {
   display: flex;
   justify-content: space-between;
@@ -74,7 +88,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 0%);
 }
 
 .show-movie__add-blocker-message-wrapper > div > h4 {
