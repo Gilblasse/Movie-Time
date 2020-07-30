@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import Chip from "@material-ui/core/Chip";
 import Context from "../Config/Context";
 import { withRouter } from "react-router-dom";
@@ -10,12 +10,13 @@ import { CircularProgress } from '@material-ui/core'
 
 
 function ShowMovie({ match }) {
+  
   const getMovie = (fetchMovieByURL, title) => {
     fetchMovieByURL(title);
     return <CircularProgress size='5rem'/>;
   };
 
-  const moviePlayer = useRef();
+
 
   return (
     <Context.Consumer>
@@ -24,43 +25,40 @@ function ShowMovie({ match }) {
           getMovie(fetchMovieByURL, match.params.title)
         ) : (
           <div className="show-movie">
-            <AdBlockDetect>
-              <div className="movie-stream-wrapper" ref={moviePlayer}>
-                <object
-                  data={`https://streamvideo.link/getvideo?key=F4V1P3bmuHyarjPO&video_id=${movie?.imdb_id}`}
-                  width="100%"
-                  height="500"
-                >
-                  <embed
-                    src={`https://streamvideo.link/getvideo?key=F4V1P3bmuHyarjPO&video_id=${movie?.imdb_id}`}
+            <div className="show-movie__movie-player-wrapper">
+             
+              <div className="show-movie__add-blocker-message-wrapper">
+                <div>
+                  <Typography variant="h4" color="textSecondary">
+                    Please Enable Ad Blockers
+                  </Typography>
+
+                  <img
+                    width="300"
+                    src="https://img2.pngio.com/adblock-png-3-png-image-ad-blocking-png-446_446.png"
+                    alt="Block Ads"
+                  />
+                </div>
+              </div>
+            
+
+              <AdBlockDetect>
+                <div className="show-movie__movie-stream-wrapper" >
+                  <object
+                    data={`https://streamvideo.link/getvideo?key=F4V1P3bmuHyarjPO&video_id=${movie?.imdb_id}`}
                     width="100%"
                     height="500"
-                  />
-                </object>
-              </div>
-            </AdBlockDetect>
-
-            <div
-              style={
-                (typeof moviePlayer.current) === 'object'
-                  ? { display: "none" }
-                  : { display: "block", width: "100%", height: 500 }
-              }
-              className="show-movie__add-blocker-message-wrapper"
-            >
-              <div>
-                {console.log((typeof moviePlayer.current) === 'object')}
-                <Typography variant="h4" color="textSecondary">
-                  Please Enable Ad Blockers
-                </Typography>
-
-                <img
-                  width="300"
-                  src="https://img2.pngio.com/adblock-png-3-png-image-ad-blocking-png-446_446.png"
-                  alt="Block Ads"
-                />
-              </div>
+                  >
+                    <embed
+                      src={`https://streamvideo.link/getvideo?key=F4V1P3bmuHyarjPO&video_id=${movie?.imdb_id}`}
+                      width="100%"
+                      height="500"
+                    />
+                  </object>
+                </div>
+              </AdBlockDetect>
             </div>
+
 
             <div className="show-movie__details-wrapper">
               <div className="show-movie__poster-wrapper">
@@ -82,9 +80,8 @@ function ShowMovie({ match }) {
                 </div>
 
                 <ul className="show-movie__video-info">
-                {console.log('Show Movie: ', movie)}
                   <li><strong>Runtime: </strong> {movie?.runtime} min</li>
-                  <li><strong>Popularity: </strong> {Math.ceil(movie?.popularity)}%</li>
+                  <li><strong>Votes: </strong> {movie?.vote_average} </li>
                   <li className="show-movie__video-genres">
                     {movie?.genres?.map((genre) => (
                       <Chip label={genre?.name} variant="outlined" />

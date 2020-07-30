@@ -28,7 +28,7 @@ function MovieCard(props) {
   const classes = useStyles();
 
   const handleClick = (show, movie) => {
-    show(movie);
+    show(movie.id);
     props.history.push(`/movies/${movie.title}`);
   };
 

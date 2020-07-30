@@ -47,6 +47,8 @@ class MainProvider extends Component {
         // window.addEventListener('beforeunload', this.popUpBlocker);
     }
 
+    
+
 
     // popUpBlocker(event) {
     //     // Cancel the event as stated by the standard.
@@ -79,7 +81,7 @@ class MainProvider extends Component {
 
 
     handleScroll(e) {
-        if(this.props.history.location.pathname === '/'){
+        if (this.props.history.location.pathname === '/') {
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
                 this.state.searchTitle.length <= 2 && this.updateMoviePage()
             }
@@ -96,10 +98,10 @@ class MainProvider extends Component {
 
 
 
-    showMovie(movie) {
-        this.setState({
-            movie
-        })
+    showMovie(movieID) {
+        fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US`)
+        .then(res => res.json())
+        .then(movie => this.setState({movie})  )
     }
 
 
@@ -155,7 +157,7 @@ class MainProvider extends Component {
         const movies = data.data.results
         const movie = movies.filter(movie => movie.title === movieTitle)
         const movieData = await axios(`https://api.themoviedb.org/3/movie/${movie[0].id}?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US`)
-        console.log("movieData: ", movieData)
+
         this.setState({
             movie: movieData.data
         })
