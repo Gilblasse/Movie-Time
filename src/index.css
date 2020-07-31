@@ -44,6 +44,12 @@
   background-color: #fff;
 }
 
+.show-movie__movie-stream-wrapper > iframe{
+  -webkit-box-shadow: inset 0px 0px 15px 2px rgba(242,242,242,1);
+  -moz-box-shadow: inset 0px 0px 15px 2px rgba(242,242,242,1);
+  box-shadow: inset 0px 0px 15px 2px rgba(242,242,242,1);
+}
+
 .show-movie__details-wrapper {
   display: flex;
   justify-content: space-between;

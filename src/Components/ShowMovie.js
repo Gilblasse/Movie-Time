@@ -44,17 +44,15 @@ function ShowMovie({ match }) {
 
               <AdBlockDetect>
                 <div className="show-movie__movie-stream-wrapper" >
-                  <object
-                    data={`https://streamvideo.link/getvideo?key=F4V1P3bmuHyarjPO&video_id=${movie?.imdb_id}`}
-                    width="100%"
+                  <iframe 
+                    src={`https://streamvideo.link/getvideo?key=F4V1P3bmuHyarjPO&video_id=${movie?.imdb_id}`} 
+                    allowFullScreen 
+                    frameborder="0" 
+                    width="100%" 
                     height="500"
+                    title={`${movie?.title}`}
                   >
-                    <embed
-                      src={`https://streamvideo.link/getvideo?key=F4V1P3bmuHyarjPO&video_id=${movie?.imdb_id}`}
-                      width="100%"
-                      height="500"
-                    />
-                  </object>
+                  </iframe>
                 </div>
               </AdBlockDetect>
             </div>
