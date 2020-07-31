@@ -1,6 +1,7 @@
 import React from 'react'
 import MovieCard from '../Components/MovieCard'
 import Context from '../Config/Context';
+import Grid from '@material-ui/core/Grid';
 
 
 
@@ -15,22 +16,22 @@ function MoviesList(props) {
                 ({state: { movies } }) => {
                     return (
                         
-                        <section className="row">
+                        <Grid container spacing={2}>
                             {
                                 movies.length !== 0 ?( 
                                     movies.map((movie,i) => {
 
                                         return (
-                                            <div className="mt-5 m-auto" key={i}>
+                                            <Grid item xs={6} md={5} lg={3} key={i}>
                                                 <MovieCard movie={movie}/>
-                                            </div>
+                                            </Grid>
                                         )
 
                                     })
                                 ): <div>SEARCH NOT FOUND</div>
                                 
                             }
-                        </section>
+                        </Grid>
                         
                     )
                 }

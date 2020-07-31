@@ -3,10 +3,7 @@ import MoviesList from './MoviesList';
 import FeaturedMovie from '../Components/FeaturedMovie';
 import Context from '../Config/Context';
 import {Typography} from '@material-ui/core';
-import {
-    Switch,
-    Route,
-} from "react-router-dom";
+import {Switch,Route} from "react-router-dom";
 import ShowMovie from '../Components/ShowMovie';
 
 

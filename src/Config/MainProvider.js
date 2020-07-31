@@ -14,7 +14,7 @@ import {
 
 const trendingMoviesApi = 'https://api.themoviedb.org/3/trending/movie/day?api_key=e47ec9ad25c216b1a5113b00fac67272'
 // const moviesByYear = 'https://api.themoviedb.org/3/discover/movie?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&'
-// const findMovieByTitleApi = 'https://www.omdbapi.com/?apikey=ae73008e&t='
+// const findMovieByTitleApi = 'http://www.omdbapi.com/?apikey=ae73008e&t='
 const searchMovieByTitle = 'https://api.themoviedb.org/3/search/movie?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US&page=1&include_adult=false&query='
 const menuItems = {
     'Movies': 0,
@@ -47,7 +47,7 @@ class MainProvider extends Component {
         // window.addEventListener('beforeunload', this.popUpBlocker);
     }
 
-    
+
 
 
     // popUpBlocker(event) {
@@ -100,8 +100,10 @@ class MainProvider extends Component {
 
     showMovie(movieID) {
         fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US`)
-        .then(res => res.json())
-        .then(movie => this.setState({movie})  )
+            .then(res => res.json())
+            .then(movie => this.setState({
+                movie
+            }))
     }
 
 
@@ -117,10 +119,10 @@ class MainProvider extends Component {
     fetchFeatured = () => {
         const selectedMovie = this.state.allMovies[Math.floor(Math.random() * this.state.allMovies.length)]
         fetch(`https://api.themoviedb.org/3/movie/${selectedMovie.id}?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US`)
-        .then(res => res.json())
-        .then(movie => this.setState({
-            featured: movie
-        }))
+            .then(res => res.json())
+            .then(movie => this.setState({
+                featured: movie
+            }))
     }
 
 
@@ -186,8 +188,8 @@ class MainProvider extends Component {
 
 
     render() {
-        return ( <
-            Context.Provider value = {
+        return ( 
+            <Context.Provider value = {
                 {
                     state: this.state,
                     setMovie: this.setMovie,
@@ -201,7 +203,8 @@ class MainProvider extends Component {
                 }
             } > {
                 this.props.children
-            } < /Context.Provider>
+            } 
+            </Context.Provider>
         )
     }
 

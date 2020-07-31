@@ -81,7 +81,7 @@ function ShowMovie({ match }) {
 
                 <ul className="show-movie__video-info">
                   <li><strong>Runtime: </strong> {movie?.runtime} min</li>
-                  <li><strong>Votes: </strong> {movie?.vote_average} </li>
+                  <li><strong>Votes: </strong> {movie?.vote_average} / 10</li>
                   <li className="show-movie__video-genres">
                     {movie?.genres?.map((genre) => (
                       <Chip label={genre?.name} variant="outlined" />

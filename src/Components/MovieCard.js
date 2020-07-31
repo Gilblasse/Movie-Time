@@ -41,7 +41,9 @@ function MovieCard(props) {
             <Skeleton variant="text" />
           </div>
         ) : (
+
           <div onClick={() => handleClick(showMovie, props.movie)}>
+           
             <Card className={classes.root}>
               <CardActionArea>
                 <CardMedia
@@ -65,7 +67,9 @@ function MovieCard(props) {
                 </CardContent>
               </CardActionArea>
             </Card>
+
           </div>
+          
         );
       }}
     </Context>
