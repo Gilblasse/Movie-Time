@@ -42,31 +42,30 @@ function MovieCard(props) {
           </div>
         ) : (
 
-          <div onClick={() => handleClick(showMovie, props.movie)}>
-           
-            <Card className={classes.root}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  image={`https://image.tmdb.org/t/p/w500${poster_path}`}
-                  title={title}
-                />
+          <div>
 
-                <CardContent>
-                  <Typography
-                    gutterBottom
-                    variant="body1"
-                    align="center"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    <strong>
-                      {title.length > 17 ? `${title.slice(0, 18)} ...` : title}
-                    </strong>
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
+              <Card className={classes.root} onClick={() => handleClick(showMovie, props.movie)}>
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                    title={title}
+                  />
+                   <CardContent>
+                    <Typography
+                      gutterBottom
+                      variant="body1"
+                      align="center"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      <strong>
+                        {title.length > 17 ? `${title.slice(0, 18)} ...` : title}
+                      </strong>
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
 
           </div>
           
