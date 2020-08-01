@@ -37,9 +37,9 @@ function MovieCard(props) {
           </div>
         ) : (
 
-          <div onClick={() => handleClick(showMovie, props.movie)}>
+          <div>
 
-              <Card className={classes.root}>
+              <Card className={classes.root} onClick={() => handleClick(showMovie, props.movie)}>
                 <CardActionArea>
                   <CardMedia
                     className={classes.media}
