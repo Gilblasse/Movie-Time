@@ -1,12 +1,12 @@
 import React from 'react'
-import {Typography} from '@material-ui/core';
+// import {Typography} from '@material-ui/core';
 import Context from '../Config/Context';
 import { withRouter } from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
 import AccessAlarmTwoToneIcon from '@material-ui/icons/AccessAlarmTwoTone';
 import StarTwoToneIcon from '@material-ui/icons/StarTwoTone';
 import PlayCircleFilledTwoToneIcon from '@material-ui/icons/PlayCircleFilledTwoTone';
-import { IconButton } from '@material-ui/core';
+// import { IconButton } from '@material-ui/core';
 import moment from 'moment';
 
 
@@ -26,8 +26,8 @@ function FeaturedMovie(props) {
             
             {
                 ({ state:{ featured  }, showMovie }) => {
-                    const {backdrop_path, title, release_date, runtime, vote_average, overview} = featured
-                    
+                    const {backdrop_path, title, release_date, runtime, vote_average} = featured
+                    console.log(title)
                     return (
                         <div>
                             
