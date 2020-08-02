@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import SideBar from './Components/SideBar';
 import NavBar from './Containers/NavBar';
 import Main from './Containers/MainContainer';
+import Context from './Config/Context';
 
 
 
@@ -50,6 +51,21 @@ function App(props) {
      
      
       <main className={classes.content}>
+        {/* <Context.Consumer>
+          {
+            ({ state:{ featured  }, showMovie }) => {
+              console.log('Featured: ', featured)
+              return (
+              <div style={{display: 'flex'}}>
+                <img width='55px' src={`${featured?.Poster}`} alt={`${featured?.title}`}/>
+                <div>
+                  {featured?.title}
+                </div>
+              </div>
+              )
+            }
+          }           
+        </Context.Consumer> */}
         <div className={classes.toolbar} />
         <Main/>
       </main>
