@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: `0 25px` ,
   },
 }));
 
@@ -49,8 +49,23 @@ function App(props) {
       </nav>
      
      
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
+      <main className={classes.content} >
+        {/* <Context.Consumer>
+          {
+            ({ state:{ featured  }, showMovie }) => {
+              console.log('Featured: ', featured)
+              return (
+              <div style={{display: 'flex'}}>
+                <img width='55px' src={`${featured?.Poster}`} alt={`${featured?.title}`}/>
+                <div>
+                  {featured?.title}
+                </div>
+              </div>
+              )
+            }
+          }           
+        </Context.Consumer> */}
+        {/* <div className={classes.toolbar} /> */}
         <Main/>
       </main>
 
