@@ -1,22 +1,59 @@
 import React from "react";
-import { Card, CardActionArea, CardMedia, CardContent, Typography} from "@material-ui/core";
+import { Card, CardActionArea,CardMedia, CardContent,Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Context from "../Config/Context";
 import { withRouter } from "react-router-dom";
 import { Skeleton } from "@material-ui/lab";
-import MovieToolTip from "./MovieToolTip";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+
+
+
+
+
+// const theme = createMuiTheme({
+//   overrides: {
+//     // Style sheet name 
+//     MuiCardActionArea: {
+//       // Name of the rule
+//       root: {
+//         '&:hover': {
+//           opacity: 0.8
+//         }
+//       },
+
+//       focusHighlight: {
+//         opacity: 1
+//       }
+
+
+//     }
+//   }
+// });
+
+
+
 
 function MovieCard(props) {
-  const { movie: { poster_path, title } } = props;
+  const {
+    movie: { poster_path, title },
+  } = props;
+
+
   const useStyles = makeStyles({
     root: {
       width: 250,
       marginTop: 50,
+      borderRadius: 25,
+    //   '&:hover': {
+    //     background: "#f00",
+    //  }
     },
     media: {
       height: 360,
     },
   });
+
+
 
   const classes = useStyles();
 
@@ -39,8 +76,9 @@ function MovieCard(props) {
 
           <div>
 
-              <Card className={classes.root} onClick={() => handleClick(showMovie, props.movie)}>
-                <CardActionArea>
+            {/* <ThemeProvider theme={theme}> */}
+              <Card className={classes.root} onClick={() => handleClick(showMovie, props.movie)} raised>
+                <CardActionArea  >
                   <CardMedia
                     className={classes.media}
                     image={`https://image.tmdb.org/t/p/w500${poster_path}`}
@@ -62,7 +100,9 @@ function MovieCard(props) {
                   </CardContent>
                 </CardActionArea>
               </Card>
-         </div>
+            {/* </ThemeProvider> */}
+          </div>
+          
         );
       }}
     </Context>
