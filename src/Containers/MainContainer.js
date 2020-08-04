@@ -26,7 +26,7 @@ class Main extends Component {
                                             
                                             {
                                                 state.movies && state.featured
-                                                ?   <>
+                                                ?   <div style={{backgroundColor: '#153F3C', borderRadius: '25px 25px 0 0', padding: '25px 50px'}}>
                                                         <div>
                                                             <FeaturedMovie />
                                                         </div>
@@ -40,7 +40,7 @@ class Main extends Component {
 
                                                             <MoviesList />
                                                         </div>
-                                                    </>
+                                                    </div>
                                                 : null
                                             }
                                     
