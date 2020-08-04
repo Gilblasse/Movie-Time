@@ -2,8 +2,14 @@ import React from 'react'
 import {Typography} from '@material-ui/core';
 import Context from '../Config/Context';
 import { withRouter } from "react-router-dom";
-
-
+import Grid from '@material-ui/core/Grid';
+import AccessAlarmTwoToneIcon from '@material-ui/icons/AccessAlarmTwoTone';
+import StarTwoToneIcon from '@material-ui/icons/StarTwoTone';
+import PlayCircleFilledTwoToneIcon from '@material-ui/icons/PlayCircleFilledTwoTone';
+// import { IconButton } from '@material-ui/core';
+import moment from 'moment';
+import FeaturedInfo from './FeaturedInfo';
+import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 
 
 
@@ -22,34 +28,63 @@ function FeaturedMovie(props) {
             
             {
                 ({ state:{ featured  }, showMovie }) => {
-                    const {backdrop_path, title, release_date, runtime, vote_average, overview} = featured
-                    
+                    const {backdrop_path, release_date, runtime, vote_average} = featured
+
                     return (
-                        <div className="parent">
-                            <div id="featured-wrapper">
-                                <div>   
-                                    <img src={`https://image.tmdb.org/t/p/w500${backdrop_path}`} 
-                                        alt={`${title} Poster`} 
-                                        id="featured" 
-                                        onClick={() => handleClick(showMovie, featured)}
-                                    />
-                                </div>
+                        <div>
+                            <FeaturedInfo featured={featured}/>
 
-                                <div className="jumbotron">
-                                    <Typography variant="h4" align="right">
-                                        {title}
-                                    </Typography>
+                            <Grid container direction="column" >
+                                <Grid 
+                                    item 
+                                    style={{
+                                        background: `url(https://image.tmdb.org/t/p/original${backdrop_path}) no-repeat`,
+                                        height: '500px',
+                                        borderRadius: '25px 25px 0 0',
+                                        backgroundSize: 'cover',
+                                        cursor: 'pointer',
+                                        position: 'relative'
+                                        }}
+                                    onClick={() => handleClick(showMovie, featured)}
+                                    >   
+                                    <PlayCircleFilledWhiteIcon className='featuredMovie__play-button'/>
+                                </Grid>
 
-                                    <Typography variant="subtitle1" align="right">
-                                        {` ${release_date} | ${runtime} min | ${vote_average} votes`}
-                                    </Typography>
+                                <Grid item style={{backgroundColor: '#193231', color:'#fff', borderRadius: '0px 0px 25px 25px', padding: '25px 15px'}} >
+                                    <Grid container spacing={3}>
+                                        <Grid item >
+                                            <span style={{background: '#3d5a58', padding: '13px',borderRadius: '10px',marginRight: '10px'}}>
+                                                 <AccessAlarmTwoToneIcon />
+                                            </span>
+                                            <span>
+                                                {`${runtime} min `}
+                                            </span>
+                                        </Grid>
 
-                                    <Typography variant="body2" color="textSecondary" align="right">
-                                        {overview}
-                                    </Typography>
-                                </div>
+                                        <Grid item >
+                                            <span style={{background: '#3d5a58', padding: '13px',borderRadius: '10px',marginRight: '10px'}}>
+                                                <StarTwoToneIcon/>
+                                            </span>
+                                            <span>
+                                                {`${vote_average} votes`}
+                                            </span>
+                                        </Grid>
 
-                            </div>
+                                        <Grid item >
+                                            <span style={{background: '#3d5a58', padding: '13px',borderRadius: '10px',marginRight: '10px'}}>
+                                                 <PlayCircleFilledTwoToneIcon />
+                                            </span>
+                                            <span>
+                                                { ` ${ moment(release_date).format('MMMM D, Y') } `}
+                                            </span>
+                                        </Grid>
+                                    </Grid>
+                                
+                                
+                                
+                                </Grid>
+
+                            </Grid>
                         </div>
                     )
                 }
