@@ -3,8 +3,6 @@ import Chip from "@material-ui/core/Chip";
 import Context from "../Config/Context";
 import { withRouter } from "react-router-dom";
 import { Typography } from "@material-ui/core";
-import AdBlockDetect from "react-ad-block-detect";
-// import moment from 'moment'
 import { CircularProgress } from '@material-ui/core'
 
 
@@ -40,12 +38,11 @@ function ShowMovie({ match }) {
                   />
                 </div>
               </div>
-            
-
-              {/* <AdBlockDetect> */}
+              
+              
                 <div className="show-movie__movie-stream-wrapper" >
                   <iframe 
-                    src={`https://streamvideo.link/getvideo?key=F4V1P3bmuHyarjPO&video_id=${movie?.imdb_id}`} 
+                    src={`https://www.2embed.to/embed/imdb/movie?id=${movie?.imdb_id}`} 
                     allowFullScreen 
                     frameborder="0" 
                     width="100%" 
@@ -54,7 +51,6 @@ function ShowMovie({ match }) {
                   >
                   </iframe>
                 </div>
-              {/* </AdBlockDetect> */}
             </div>
 
 

@@ -12,7 +12,6 @@
     "axios": "^0.19.2",
     "moment": "^2.27.0",
     "react": "^16.13.1",
-    "react-ad-block-detect": "^1.0.1",
     "react-devtools": "^4.8.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
