@@ -42,7 +42,7 @@ function ShowMovie({ match }) {
               </div>
             
 
-              <AdBlockDetect>
+              {/* <AdBlockDetect> */}
                 <div className="show-movie__movie-stream-wrapper" >
                   <iframe 
                     src={`https://streamvideo.link/getvideo?key=F4V1P3bmuHyarjPO&video_id=${movie?.imdb_id}`} 
@@ -54,7 +54,7 @@ function ShowMovie({ match }) {
                   >
                   </iframe>
                 </div>
-              </AdBlockDetect>
+              {/* </AdBlockDetect> */}
             </div>
 
 
