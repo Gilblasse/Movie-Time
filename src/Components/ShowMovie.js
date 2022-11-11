@@ -24,23 +24,7 @@ function ShowMovie({ match }) {
         ) : (
           <div className="show-movie">
             <div className="show-movie__movie-player-wrapper">
-             
-              <div className="show-movie__add-blocker-message-wrapper">
-                <div>
-                  <Typography variant="h4" color="textSecondary">
-                    Please Enable Ad Blockers
-                  </Typography>
-
-                  <img
-                    width="300"
-                    src="https://img2.pngio.com/adblock-png-3-png-image-ad-blocking-png-446_446.png"
-                    alt="Block Ads"
-                  />
-                </div>
-              </div>
-              
-              
-                <div className="show-movie__movie-stream-wrapper" >
+                <div className="show-movie__movie-stream-wrapper" style={{height: 500}}>
                   <iframe 
                     src={`https://www.2embed.to/embed/imdb/movie?id=${movie?.imdb_id}`} 
                     allowFullScreen 
