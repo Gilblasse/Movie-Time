@@ -20,7 +20,10 @@ const findMovieTrailers = movID => `https://api.themoviedb.org/3/movie/${movID}/
 const menuItems = {
     'Movies': 0,
     'Action': 28,
+    'Comedy': 35,
+    'Romance': 10749,
     'Family': 10751,
+    'Mystery': 9648,
     'Animation': 16
 }
 

@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import {
   Card,
   CardActionArea,
@@ -13,7 +14,7 @@ import { Skeleton } from "@material-ui/lab";
 
 function MovieCard(props) {
   const {
-    movie: { poster_path, title },
+    movie: { poster_path, title, release_date },
   } = props;
   const useStyles = makeStyles({
     root: {
@@ -35,6 +36,7 @@ function MovieCard(props) {
   return (
     <Context.Consumer>
       {({ showMovie }) => {
+        console.log({movie: props.movie})
         return !props.movie || !showMovie ? (
           <div style={{ marginBottom: 40 }}>
             <Skeleton variant="rect" width={210} height={318} />
@@ -52,17 +54,26 @@ function MovieCard(props) {
                     title={title}
                   />
                    <CardContent>
-                    <Typography
-                      gutterBottom
-                      variant="body1"
-                      align="center"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      <strong>
-                        {title.length > 17 ? `${title.slice(0, 18)} ...` : title}
-                      </strong>
-                    </Typography>
+                      <Typography
+                        gutterBottom
+                        variant="body1"
+                        align="center"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        <strong>
+                          {title.length > 17 ? `${title.slice(0, 18)} ...` : title}
+                        </strong>
+                      </Typography>
+                      <Typography
+                        gutterBottom
+                        variant="subtitle2"
+                        align="center"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        {moment(release_date)?.format('MMMM d, YYYY') || "N/A"}
+                      </Typography>
                   </CardContent>
                 </CardActionArea>
               </Card>
