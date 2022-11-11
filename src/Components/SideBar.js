@@ -73,7 +73,7 @@ function SideBar(props) {
                     }}
                 >
                     <div className={classes.toolbar} />
-                    <img src={logo} class="img-fluid logo" alt="logo" onClick={()=>props.history.push('/')}/>
+                    <img src={logo} className="img-fluid logo" alt="logo" onClick={()=>props.history.push('/')}/>
                     <div className="container">
                         <SearchBar />
                     </div>
@@ -90,7 +90,7 @@ function SideBar(props) {
                     open
                 >
                     
-                    <img src={logo} class="img-fluid logo" alt="logo" onClick={()=>props.history.push('/')}/>
+                    <img src={logo} className="img-fluid logo" alt="logo" onClick={()=>props.history.push('/')}/>
 
                     <div className="container">
                         <SearchBar />

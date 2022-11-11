@@ -14,7 +14,7 @@ import {
 
 const trendingMoviesApi = 'https://api.themoviedb.org/3/trending/movie/day?api_key=e47ec9ad25c216b1a5113b00fac67272'
 // const moviesByYear = 'https://api.themoviedb.org/3/discover/movie?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&'
-const findMovieByTitleApi = 'https://www.omdbapi.com/?apikey=ae73008e&t='
+const findMovieByTitleApi = 'https://www.omdbapi.com/?apikey=d223583c&t='
 const searchMovieByTitle = 'https://api.themoviedb.org/3/search/movie?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US&page=1&include_adult=false&query='
 const menuItems = {
     'Movies': 0,
@@ -65,11 +65,11 @@ class MainProvider extends Component {
             const movies = await this.fetchMovies()
 
             this.setState(prev => ({
-                allMovies: [...prev.allMovies, ...movies]
+                allMovies: this.uniqMovies([...prev.allMovies, ...movies])
             }), () => {
 
                 const activeGenreId = menuItems[this.state.activeFilter]
-                const mixedMovies = [...this.state.allMovies, ...movies]
+                const mixedMovies = this.uniqMovies([...this.state.allMovies, ...movies])
                 const movis = activeGenreId !== 0 ? mixedMovies.filter(movie => movie.genre_ids.includes(activeGenreId)) : this.state.allMovies
 
                 this.setState({
@@ -77,6 +77,17 @@ class MainProvider extends Component {
                 })
             })
         })
+    }
+
+    uniqMovies(movies){
+        const uniqListOfMovies = {}
+        return movies.filter((o,d) => {
+            if(!uniqListOfMovies[d.id]){
+                o[d.id] = d
+                return true
+            }
+            return false
+        } ,{})
     }
 
 
@@ -118,10 +129,9 @@ class MainProvider extends Component {
 
     fetchFeatured = async () => {
         const selectedMovie = this.state.allMovies[Math.floor(Math.random() * this.state.allMovies.length)]
-
         const { data: movie } = await axios.get(`https://api.themoviedb.org/3/movie/${selectedMovie.id}?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US`)
         const { data:{Actors, Director, Poster, Rated} } = await axios.get(`${findMovieByTitleApi}${movie.title}`)
-
+        
         this.setState({featured: {...movie, Actors, Director, Poster, Rated }})
     }
 

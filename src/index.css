@@ -60,7 +60,7 @@
   justify-content: space-between;
   /* align-items: center; */
   background-color: #fff;
-  padding: 40px 40px 0;
+  padding: 40px 40px 30px;
 }
 
 .show-movie__poster-wrapper {
