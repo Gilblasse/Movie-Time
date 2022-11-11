@@ -12,7 +12,7 @@ import {
 
 
 
-const trendingMoviesApi = 'https://api.themoviedb.org/3/trending/movie/day?api_key=e47ec9ad25c216b1a5113b00fac67272'
+const trendingMoviesApi = 'https://api.themoviedb.org/3/trending/movie/week?api_key=e47ec9ad25c216b1a5113b00fac67272'
 // const moviesByYear = 'https://api.themoviedb.org/3/discover/movie?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&'
 const findMovieByTitleApi = 'https://www.omdbapi.com/?apikey=d223583c&t='
 const searchMovieByTitle = 'https://api.themoviedb.org/3/search/movie?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US&page=1&include_adult=false&query='
@@ -49,16 +49,6 @@ class MainProvider extends Component {
     }
 
 
-
-
-    // popUpBlocker(event) {
-    //     // Cancel the event as stated by the standard.
-    //     event.preventDefault();
-    //     // Chrome requires returnValue to be set.
-    //     event.returnValue = '';
-    //     return event.returnValue
-    // }
-
     updateMoviePage() {
         this.setState(prevState => ({
             page: prevState.page + 1
@@ -72,29 +62,33 @@ class MainProvider extends Component {
                 const activeGenreId = menuItems[this.state.activeFilter]
                 const mixedMovies = this.uniqMovies([...this.state.allMovies, ...movies])
                 const movis = activeGenreId !== 0 ? mixedMovies.filter(movie => movie.genre_ids.includes(activeGenreId)) : this.state.allMovies
+                const featureGenersIds = this.state.featured?.genres ? this.state.featured.genres.map(g => g.id) : this.state.featured.genre_ids
+                const featuredGenersIdsWithMoviesID = [...featureGenersIds ,0]
+                const featuredPick = featuredGenersIdsWithMoviesID.includes(activeGenreId) ? this.state.featured : this.pickRandom(movis)
+                
+                this.fetchFeatured(featuredPick)
 
-                this.setState({
-                    movies: movis
-                })
+                this.setState({movies: movis})
             })
         })
     }
 
     uniqMovies(movies){
         const uniqListOfMovies = {}
-        return movies.filter((o,d) => {
+        return movies.filter(d => {
             if(!uniqListOfMovies[d.id]){
-                o[d.id] = d
+                uniqListOfMovies[d.id] = d
                 return true
             }
             return false
-        } ,{})
+        })
     }
 
 
     handleScroll(e) {
         if (this.props.history.location.pathname === '/') {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            const percentage = document.body.offsetHeight * .18
+            if ((window.innerHeight + window.scrollY) > document.body.offsetHeight - percentage) {
                 this.state.searchTitle.length <= 2 && this.updateMoviePage()
             }
         }
@@ -148,8 +142,8 @@ class MainProvider extends Component {
     }
 
 
-    fetchFeatured = async () => {
-        const selectedMovie = this.pickRandom(this.state.allMovies)
+    fetchFeatured = async (featurdMovie) => {
+        const selectedMovie = featurdMovie || this.pickRandom(this.state.allMovies)
         const { data: movie } = await axios.get(`https://api.themoviedb.org/3/movie/${selectedMovie.id}?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US`)
         const { data:{Actors, Director, Poster, Rated} } = await axios.get(`${findMovieByTitleApi}${movie.title}`)
         

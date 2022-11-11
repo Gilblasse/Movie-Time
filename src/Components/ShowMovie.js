@@ -2,9 +2,10 @@ import React from "react";
 import Chip from "@material-ui/core/Chip";
 import Context from "../Config/Context";
 import { withRouter } from "react-router-dom";
-import { Grid, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { CircularProgress } from '@material-ui/core'
 import YouTubeIcon from '@material-ui/icons/YouTube';
+import moment from "moment";
 
 
 function ShowMovie({ match }) {
@@ -61,9 +62,10 @@ function ShowMovie({ match }) {
                 <ul className="show-movie__video-info">
                   <li><strong>Runtime: </strong> {movie?.runtime} min</li>
                   <li><strong>Votes: </strong> {movie?.vote_average} / 10</li>
+                  <li><strong>Release Date: </strong> {moment(movie?.release_date)?.format('MMMM d, YYYY') || "N/A"}</li>
                   <li className="show-movie__video-genres">
                     {movie?.genres?.map((genre) => (
-                      <Chip label={genre?.name} variant="outlined" />
+                      <Chip key={genre?.name} label={genre?.name} variant="outlined" />
                     ))}
                   </li>
                 </ul>

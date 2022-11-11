@@ -38,6 +38,7 @@ function FeaturedMovie(props) {
                                         height: '500px',
                                         borderRadius: '25px 25px 0 0',
                                         backgroundSize: 'cover',
+                                        backgroundPosition:'center'
                                     }}
                                     onClick={() => handleClick(showMovie, featured)}
                                     >   

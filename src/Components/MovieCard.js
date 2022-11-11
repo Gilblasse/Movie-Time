@@ -33,7 +33,7 @@ function MovieCard(props) {
   };
 
   return (
-    <Context>
+    <Context.Consumer>
       {({ showMovie }) => {
         return !props.movie || !showMovie ? (
           <div style={{ marginBottom: 40 }}>
@@ -71,7 +71,7 @@ function MovieCard(props) {
           
         );
       }}
-    </Context>
+    </Context.Consumer>
   );
 }
 
