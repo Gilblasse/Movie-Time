@@ -16,6 +16,7 @@ const trendingMoviesApi = 'https://api.themoviedb.org/3/trending/movie/day?api_k
 // const moviesByYear = 'https://api.themoviedb.org/3/discover/movie?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&'
 const findMovieByTitleApi = 'https://www.omdbapi.com/?apikey=d223583c&t='
 const searchMovieByTitle = 'https://api.themoviedb.org/3/search/movie?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US&page=1&include_adult=false&query='
+const findMovieTrailers = movID => `https://api.themoviedb.org/3/movie/${movID}/videos?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US`
 const menuItems = {
     'Movies': 0,
     'Action': 28,
@@ -105,7 +106,10 @@ class MainProvider extends Component {
     }
 
 
-
+    openYouTubeInNewTab(key) {
+        const newWindow = window.open(`https://www.youtube.com/watch?v=${key}`, '_blank', 'noopener,noreferrer')
+        if (newWindow) newWindow.opener = null
+    }
 
 
 
@@ -114,6 +118,19 @@ class MainProvider extends Component {
             .then(res => res.json())
             .then(movie => this.setState({
                 movie
+            }, async ()=>{
+                const movieTrailerVidsRes = await fetch(findMovieTrailers(movieID))
+                const vids = await movieTrailerVidsRes.json()
+                const teasersTrailers = vids.results.reduce((obj, v) => {
+                    if(obj[v.type] && v.official && v.site === "YouTube"){
+                        obj[v.type] = [...obj[v.type],v]
+                    }
+                    return obj
+                } ,{Teaser: [], Trailer: []})
+
+                const [trailer, teaser] = [this.pickRandom(teasersTrailers.Trailer), this.pickRandom(teasersTrailers.Teaser)]
+
+                this.setState({movie: {...this.state.movie, teaser, trailer}})
             }))
     }
 
@@ -126,9 +143,13 @@ class MainProvider extends Component {
         }, this.fetchMoviesBySearch)
     }
 
+    pickRandom(arr) {
+        return arr[Math.floor(Math.random() * arr.length)] || arr
+    }
+
 
     fetchFeatured = async () => {
-        const selectedMovie = this.state.allMovies[Math.floor(Math.random() * this.state.allMovies.length)]
+        const selectedMovie = this.pickRandom(this.state.allMovies)
         const { data: movie } = await axios.get(`https://api.themoviedb.org/3/movie/${selectedMovie.id}?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US`)
         const { data:{Actors, Director, Poster, Rated} } = await axios.get(`${findMovieByTitleApi}${movie.title}`)
         
@@ -209,7 +230,8 @@ class MainProvider extends Component {
                     showMovie: this.showMovie.bind(this),
                     fetchMovieByURL: this.fetchMovieByURL.bind(this),
                     setactiveFilter: this.setactiveFilter.bind(this),
-                    activeFilter: this.state.activeFilter
+                    activeFilter: this.state.activeFilter,
+                    openYouTubeInNewTab: this.openYouTubeInNewTab.bind(this)
                 }
             } > {
                 this.props.children

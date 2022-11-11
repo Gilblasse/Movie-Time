@@ -113,7 +113,7 @@
 }
 
 .show-movie__video-genres {
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 .show-movie__video-genres>div:not(:last-child) {

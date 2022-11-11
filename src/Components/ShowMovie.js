@@ -2,23 +2,24 @@ import React from "react";
 import Chip from "@material-ui/core/Chip";
 import Context from "../Config/Context";
 import { withRouter } from "react-router-dom";
-import { Typography } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { CircularProgress } from '@material-ui/core'
-
+import YouTubeIcon from '@material-ui/icons/YouTube';
 
 
 function ShowMovie({ match }) {
   
+  const disabled = k => k ? {} : {disabled: true}
+  const disabledColor = k => k ? "secondary" : "disabled"
   const getMovie = (fetchMovieByURL, title) => {
     fetchMovieByURL(title);
     return <CircularProgress size='5rem'/>;
   };
 
 
-
   return (
     <Context.Consumer>
-      {({ state: { movie }, fetchMovieByURL }) => {
+      {({ state: { movie }, openYouTubeInNewTab, fetchMovieByURL }) => {
         return !movie ? (
           getMovie(fetchMovieByURL, match.params.title)
         ) : (
@@ -66,6 +67,27 @@ function ShowMovie({ match }) {
                     ))}
                   </li>
                 </ul>
+
+                <div style={{marginTop: 15, marginBottom: 5}}>
+                  <Chip 
+                    color="secondary" 
+                    size="small" 
+                    label="Trailer"
+                    icon={<YouTubeIcon color={disabledColor(movie?.trailer?.key)} />} 
+                    onClick={()=> openYouTubeInNewTab(movie?.trailer?.key)}
+                    {...disabled(movie?.trailer?.key)}
+                  />
+
+                  <Chip 
+                    color="secondary" 
+                    size="small" 
+                    label="Teaser"
+                    icon={<YouTubeIcon color={disabledColor(movie?.trailer?.key)}  />} 
+                    onClick={()=> openYouTubeInNewTab(movie?.teaser?.key)}
+                    style={{marginLeft: 5}}
+                    {...disabled(movie?.teaser?.key)}
+                  />
+                </div>
               </div>
             </div>
 
