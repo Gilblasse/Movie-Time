@@ -4,6 +4,6 @@
     base = "/"
 
 [[redirects]]
-    from = "/movies/*"
-    to = "/movies/:splat"
-    status = 404
+  from = "/*"
+  to = "/index.html"
+  status = 200
