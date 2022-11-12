@@ -116,22 +116,24 @@ class MainProvider extends Component {
             .then(movie => this.setState({
                 movie
             }, async ()=>{
-                const movieTrailerVidsRes = await fetch(findMovieTrailers(movieID))
-                const vids = await movieTrailerVidsRes.json()
-                const teasersTrailers = vids.results.reduce((obj, v) => {
-                    if(obj[v.type] && v.official && v.site === "YouTube"){
-                        obj[v.type] = [...obj[v.type],v]
-                    }
-                    return obj
-                } ,{Teaser: [], Trailer: []})
-
-                const [trailer, teaser] = [this.pickRandom(teasersTrailers.Trailer), this.pickRandom(teasersTrailers.Teaser)]
-
+                const [trailer, teaser] = await this.getMovieTrailerTeasers(movieID)
+                
                 this.setState({movie: {...this.state.movie, teaser, trailer}})
             }))
     }
 
-
+    async getMovieTrailerTeasers(movieID){
+        const movieTrailerVidsRes = await fetch(findMovieTrailers(movieID))
+        const vids = await movieTrailerVidsRes.json()
+        const teasersTrailers = vids.results.reduce((obj, v) => {
+            if(obj[v.type] && v.official && v.site === "YouTube"){
+                obj[v.type] = [...obj[v.type],v]
+            }
+            return obj
+        } ,{Teaser: [], Trailer: []})
+        
+        return [this.pickRandom(teasersTrailers.Trailer), this.pickRandom(teasersTrailers.Teaser)]
+    }
 
 
     handleInputChange(e) {
@@ -179,21 +181,13 @@ class MainProvider extends Component {
     }
 
     async fetchMovieByURL(movieTitle) {
-        console.log({movieTitle})
         const data = await axios(`${searchMovieByTitle}${movieTitle}`)
         const movies = data.data.results
         const movie = movies.filter(movie => movie.title === movieTitle)
         const movieData = await axios(`https://api.themoviedb.org/3/movie/${movie[0].id}?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US`)
-        console.log({movieData: movieData.data})
-
-        this.setState({
-            movie: movieData.data
-        }, ()=> {
-            console.log({currentPathBeforePush: this.props.history.location.pathname, history: this.props.history})
-            this.props.history.push(`/movies/${movieData.data.title}`)
-        })
-        // this.props.history.location.pathname === '/'
-        // this.props.history.push(`/movies/${movie.title}`)
+        const [trailer, teaser] = await this.getMovieTrailerTeasers(movie[0].id)
+        
+        this.setState({movie: {...movieData.data, teaser, trailer}})
     }
 
 
