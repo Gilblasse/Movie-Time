@@ -53,7 +53,7 @@ class Main extends Component {
                     </Route>
                     
 
-                    <Route exact path="/movies/:title" component={ShowMovie} />
+                    <Route exact path="/movies/:title/" component={ShowMovie} />
                 </Switch>
         );
     }

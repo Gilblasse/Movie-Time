@@ -1,0 +1,9 @@
+[build]
+    command = "CI= yarn run build"
+    publish ="/build"
+    base = "/"
+
+[[redirects]]
+    from = "/movies/*"
+    to = "/movies/:splat"
+    status = 404

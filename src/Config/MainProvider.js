@@ -189,7 +189,7 @@ class MainProvider extends Component {
         this.setState({
             movie: movieData.data
         }, ()=> {
-            console.log({currentPathBeforePush: this.props.history.location.pathname})
+            console.log({currentPathBeforePush: this.props.history.location.pathname, history: this.props.history})
             this.props.history.push(`/movies/${movieData.data.title}`)
         })
         // this.props.history.location.pathname === '/'
