@@ -28,7 +28,7 @@ function ShowMovie({ match }) {
             <div className="show-movie__movie-player-wrapper">
                 <div className="show-movie__movie-stream-wrapper" style={{height: 500}}>
                   <iframe 
-                    src={`https://www.2embed.to/embed/imdb/movie?id=${movie?.imdb_id}`} 
+                    src={`${process.env.REACT_APP_MOVIE_SITE_2_ORIGIN}?id=${movie?.imdb_id}`}
                     allowFullScreen 
                     frameBorder="0" 
                     width="100%" 

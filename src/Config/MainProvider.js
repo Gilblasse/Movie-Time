@@ -11,12 +11,11 @@ import {
 
 
 
-
-const trendingMoviesApi = 'https://api.themoviedb.org/3/trending/movie/week?api_key=e47ec9ad25c216b1a5113b00fac67272'
-// const moviesByYear = 'https://api.themoviedb.org/3/discover/movie?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&'
-const findMovieByTitleApi = 'https://www.omdbapi.com/?apikey=d223583c&t='
-const searchMovieByTitle = 'https://api.themoviedb.org/3/search/movie?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US&page=1&include_adult=false&query='
-const findMovieTrailers = movID => `https://api.themoviedb.org/3/movie/${movID}/videos?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US`
+const trendingMoviesApi = `${process.env.REACT_APP_MOVIE_LIBRARY_ORIGIN}/trending/movie/week?api_key=${process.env.REACT_APP_LIBRARY_KEY}`
+// const moviesByYear = '${process.env.REACT_APP_MOVIE_LIBRARY_ORIGIN}/discover/movie?api_key=${process.env.REACT_APP_LIBRARY_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&'
+const findMovieByTitleApi = `${process.env.REACT_APP_IMDB_API_END_POINT}/?apikey=${process.env.REACT_APP_IMDB_API_KEY}&t=`
+const searchMovieByTitle = `${process.env.REACT_APP_MOVIE_LIBRARY_ORIGIN}/search/movie?api_key=${process.env.REACT_APP_LIBRARY_KEY}&language=en-US&page=1&include_adult=false&query=`
+const findMovieTrailers = movID => `${process.env.REACT_APP_MOVIE_LIBRARY_ORIGIN}/movie/${movID}/videos?api_key=${process.env.REACT_APP_LIBRARY_KEY}&language=en-US`
 const menuItems = {
     'Movies': 0,
     'Action': 28,
