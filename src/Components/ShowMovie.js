@@ -30,7 +30,7 @@ function ShowMovie({ match }) {
                   <iframe 
                     src={`https://www.2embed.to/embed/imdb/movie?id=${movie?.imdb_id}`} 
                     allowFullScreen 
-                    frameborder="0" 
+                    frameBorder="0" 
                     width="100%" 
                     height="500"
                     title={`${movie?.title}`}

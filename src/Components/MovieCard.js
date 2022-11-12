@@ -36,7 +36,6 @@ function MovieCard(props) {
   return (
     <Context.Consumer>
       {({ showMovie }) => {
-        console.log({movie: props.movie})
         return !props.movie || !showMovie ? (
           <div style={{ marginBottom: 40 }}>
             <Skeleton variant="rect" width={210} height={318} />

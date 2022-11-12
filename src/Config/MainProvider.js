@@ -179,14 +179,21 @@ class MainProvider extends Component {
     }
 
     async fetchMovieByURL(movieTitle) {
+        console.log({movieTitle})
         const data = await axios(`${searchMovieByTitle}${movieTitle}`)
         const movies = data.data.results
         const movie = movies.filter(movie => movie.title === movieTitle)
         const movieData = await axios(`https://api.themoviedb.org/3/movie/${movie[0].id}?api_key=e47ec9ad25c216b1a5113b00fac67272&language=en-US`)
+        console.log({movieData: movieData.data})
 
         this.setState({
             movie: movieData.data
+        }, ()=> {
+            console.log({currentPathBeforePush: this.props.history.location.pathname})
+            this.props.history.push(`/movies/${movieData.data.title}`)
         })
+        // this.props.history.location.pathname === '/'
+        // this.props.history.push(`/movies/${movie.title}`)
     }
 
 
