@@ -44,7 +44,7 @@ function ShowMovie({ match }) {
               <div className="show-movie__poster-wrapper">
                 <img
                   className="show-movie__poster"
-                  src={`${process.env.REACT_APP_MOVIE_POSTER_ORIGIN}w500${movie?.poster_path}`}
+                  src={`${process.env.REACT_APP_MOVIE_POSTER_ORIGIN}/w500${movie?.poster_path}`}
                   alt={`${movie?.title}`}
                   id="featured"
                 />
