@@ -7,25 +7,30 @@ import { CircularProgress } from '@material-ui/core'
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import moment from "moment";
 
-
+const commonLinkStyles = {textDecoration:'underline', padding: 0, border:"transparent solid 0", background:'transparent', color: 'black'}
 const links = {
   '1': `${process.env.REACT_APP_MOVIE_SITE_2_ORIGIN}?id`,
   '2': `${process.env.REACT_APP_MOVIE_SITE_ORIGIN}?imdb`
 }
 
+
 function ShowMovie({ match }) {
   const [movieLink, setMovieLink] = React.useState(links[1])
-  const [disabledMirrorLink, setDisabledMirrorLink] = React.useState({'1': true ,'2': false})
-  const linkStyles = t => ({cursor: disabledMirrorLink[t] ? '' : 'pointer', textDecoration:'underline', padding: 0, border:"transparent solid 0", background:'transparent'})
-
+  const [isDisabledMirrorLink, setIsDisabledMirrorLink] = React.useState({'1': true ,'2': false})
+  
   const disabled = k => k ? {} : {disabled: true}
   const disabledColor = k => k ? "secondary" : "disabled"
+  const linkStyles = t => ({opacity: isDisabledMirrorLink[t] ? 1 : .3, ...commonLinkStyles})
 
   const handleLink = type => {
-    const otherType = type === 1 ? 2 : 1
+    let isDisabledObj = Object.entries(isDisabledMirrorLink)
+    isDisabledObj = isDisabledObj.reduce((o,[k,v])=> {
+      o[k] = false
+      return o
+    },{})
 
     setMovieLink(links[type])
-    setDisabledMirrorLink(prv => ({...prv, [type]: true, [otherType]: false}))
+    setIsDisabledMirrorLink(() => ({...isDisabledObj, [type]: true}))
   }
 
   const getMovie = (fetchMovieByURL, title) => {
@@ -54,8 +59,8 @@ function ShowMovie({ match }) {
                   </iframe>
                 </div>
                 <div style={{display: 'flex', justifyContent: 'space-between', width: 112, marginLeft: 10}}>
-                  <button style={linkStyles(1)} onClick={()=> handleLink(1)} disabled={disabledMirrorLink[1]}>mirror 1</button>
-                  <button style={linkStyles(2)} onClick={()=> handleLink(2)} disabled={disabledMirrorLink[2]}>mirror 2</button>
+                  <button style={linkStyles(1)} onClick={()=> handleLink(1)} disabled={isDisabledMirrorLink[1]}>mirror 1</button>
+                  <button style={linkStyles(2)} onClick={()=> handleLink(2)} disabled={isDisabledMirrorLink[2]}>mirror 2</button>
                 </div>
             </div>
 
