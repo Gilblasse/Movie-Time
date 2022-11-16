@@ -8,10 +8,26 @@ import YouTubeIcon from '@material-ui/icons/YouTube';
 import moment from "moment";
 
 
+const links = {
+  '1': `${process.env.REACT_APP_MOVIE_SITE_2_ORIGIN}?id`,
+  '2': `${process.env.REACT_APP_MOVIE_SITE_ORIGIN}?imdb`
+}
+
 function ShowMovie({ match }) {
-  
+  const [movieLink, setMovieLink] = React.useState(links[1])
+  const [disabledMirrorLink, setDisabledMirrorLink] = React.useState({'1': true ,'2': false})
+  const linkStyles = t => ({cursor: disabledMirrorLink[t] ? '' : 'pointer', textDecoration:'underline', padding: 0, border:"transparent solid 0", background:'transparent'})
+
   const disabled = k => k ? {} : {disabled: true}
   const disabledColor = k => k ? "secondary" : "disabled"
+
+  const handleLink = type => {
+    const otherType = type === 1 ? 2 : 1
+
+    setMovieLink(links[type])
+    setDisabledMirrorLink(prv => ({...prv, [type]: true, [otherType]: false}))
+  }
+
   const getMovie = (fetchMovieByURL, title) => {
     fetchMovieByURL(title);
     return <CircularProgress size='5rem'/>;
@@ -28,7 +44,7 @@ function ShowMovie({ match }) {
             <div className="show-movie__movie-player-wrapper">
                 <div className="show-movie__movie-stream-wrapper" style={{height: 500}}>
                   <iframe 
-                    src={`${process.env.REACT_APP_MOVIE_SITE_2_ORIGIN}?id=${movie?.imdb_id}`}
+                    src={`${movieLink}=${movie?.imdb_id}`}
                     allowFullScreen 
                     frameBorder="0" 
                     width="100%" 
@@ -36,6 +52,10 @@ function ShowMovie({ match }) {
                     title={`${movie?.title}`}
                   >
                   </iframe>
+                </div>
+                <div style={{display: 'flex', justifyContent: 'space-between', width: 112, marginLeft: 10}}>
+                  <button style={linkStyles(1)} onClick={()=> handleLink(1)} disabled={disabledMirrorLink[1]}>mirror 1</button>
+                  <button style={linkStyles(2)} onClick={()=> handleLink(2)} disabled={disabledMirrorLink[2]}>mirror 2</button>
                 </div>
             </div>
 
